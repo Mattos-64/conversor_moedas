@@ -1,18 +1,47 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from 'expo-router';
-import * as SplashScreen from 'expo-splash-screen';
-import { useColorScheme } from 'react-native';
+import { Ionicons } from "@expo/vector-icons";
+import { Drawer } from "expo-router/drawer";
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
-import { AnimatedSplashOverlay } from '@/components/animated-icon';
-import AppTabs from '@/components/app-tabs';
-
-SplashScreen.preventAutoHideAsync();
-
-export default function TabLayout() {
-  const colorScheme = useColorScheme();
+export default function RootLayout() {
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <AnimatedSplashOverlay />
-      <AppTabs />
-    </ThemeProvider>
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <Drawer
+        screenOptions={{
+          headerShown: true,
+          drawerActiveTintColor: '#651ee9',
+        }}
+      >
+        <Drawer.Screen
+        name="index"
+        options={{
+          drawerLabel: "Início",
+          title: "Início - Conversor",
+          drawerIcon: ({ color, size }) => (
+            <Ionicons name="home-outline" color={color || '#651ee9'} size={size} />
+          ),
+        }}
+        />
+        <Drawer.Screen
+          name="sobre"
+          options={{
+            drawerLabel: "Sobre",
+            title: "Sobre",
+            drawerIcon: ({ color, size }) => (
+              <Ionicons name="information-circle-outline" color={color || '#651ee9'} size={size} />
+            ),
+          }}
+        />
+        <Drawer.Screen
+          name="(moedas)"
+          options={{
+            drawerLabel: "Moedas & Conversão",
+            title: "Conversor de Moedas",
+            drawerIcon: ({ color, size }) => (
+              <Ionicons name="swap-horizontal-outline" color={color || '#651ee9'} size={size} />
+            ),
+          }}
+        />
+      </Drawer>
+    </GestureHandlerRootView>
   );
 }
